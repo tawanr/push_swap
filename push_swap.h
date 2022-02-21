@@ -28,9 +28,10 @@ typedef struct s_stack
 {
 	struct s_node	*head;
 	size_t	stack_size;
+	char	name;
 }	t_stack;
 
-t_stack	*init_stack(int *num_list, size_t size);
+t_stack	*init_stack(int *num_list, size_t size, char name);
 int		stack_appendnew(t_stack *currstack, int num);
 void	stack_free(t_stack *currstack);
 void	stack_swap(t_stack *currstack);
@@ -42,5 +43,14 @@ int		checknum(char *str);
 int		checksort(t_stack *currstack);
 char	**get_stackarr(t_stack *stack, size_t max_stack);
 void	print_stacks(t_stack *stack_a, t_stack *stack_b);
+int		sort_stack(t_stack *stack_a, t_stack *stack_b, int max_size);
+int		checkrevsort(t_stack *currstack);
+void	freearr(char **arr);
+int		sort_pushback(t_stack *stack_a, t_stack *stack_b);
+int		sort_checkhead(t_stack *stack_a, t_stack *stack_b, int max_size);
+int		stack_getmin(t_stack *currstack);
+int		stack_getmax(t_stack *currstack);
+t_node	*stack_maxnode(t_stack *currstack);
+t_node	*stack_minnode(t_stack *currstack);
 
 #endif

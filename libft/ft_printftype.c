@@ -24,7 +24,7 @@ int	ft_printadd_hex(void *ptr)
 	}
 	printlen = 2;
 	write(1, "0x", 2);
-	out = ft_itoa_base((unsigned long)ptr, 16);
+	out = ft_itoa_base((unsigned int)ptr, 16);
 	ft_putstr_fd(out, 1);
 	printlen += ft_strlen(out);
 	free(out);

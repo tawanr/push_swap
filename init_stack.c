@@ -14,23 +14,22 @@
 
 // Initialize stack. Add all nodes from num_list.
 // If size is zero, should return empty stack.
-t_stack	*init_stack(int *num_list, size_t size)
+t_stack	*init_stack(int *num_list, size_t size, char name)
 {
 	t_stack	*stack;
-	size_t		i;
+	size_t	i;
 
 	stack = (t_stack *)malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
+	stack->head = NULL;
+	stack->stack_size = 0;
+	stack->name = name;
 	if (size == 0)
-	{
-		stack->head = NULL;
-		stack->stack_size = 0;
 		return (stack);
-	}
 	i = 0;
 	while (i < size)
-		if (stack_appendnew(stack, num_list[i++]))
+		if (!stack_appendnew(stack, num_list[i++]))
 			return (NULL);
 	return (stack);
 }
@@ -43,14 +42,16 @@ int	stack_appendnew(t_stack *currstack, int num)
 	newnode = (t_node *)malloc(sizeof(t_node));
 	if (!newnode)
 		return (0);
-	if (currstack->head == NULL)
+	if (currstack->stack_size == 0)
 	{
 		newnode->value = num;
-		newnode->next = NULL;
-		newnode->prev = NULL;
+		newnode->next = newnode;
+		newnode->prev = newnode;
+		currstack->head = newnode;
 		currstack->stack_size++;
 		return (1);
 	}
+	newnode->value = num;
 	newnode->next = currstack->head;
 	newnode->prev = currstack->head->prev;
 	newnode->prev->next = newnode;

@@ -26,6 +26,7 @@ void	stack_swap(t_stack *currstack)
 	temp->next = currstack->head;
 	currstack->head->prev = temp;
 	currstack->head = temp;
+	ft_printf("s%c\n", currstack->name);
 	return ;
 }
 
@@ -33,6 +34,7 @@ void	stack_rotate(t_stack *currstack)
 {
 	if (currstack->head == NULL)
 		return ;
+	ft_printf("r%c\n", currstack->name);
 	currstack->head = currstack->head->next;
 }
 
@@ -40,6 +42,7 @@ void	stack_reverser(t_stack *currstack)
 {
 	if (currstack->head == NULL)
 		return ;
+	ft_printf("rr%c\n", currstack->name);
 	currstack->head = currstack->head->prev;
 }
 
@@ -49,20 +52,23 @@ void	stack_push(t_stack *stack_from, t_stack *stack_to)
 
 	if (stack_from->head == NULL)
 		return ;
+	ft_printf("p%c\n", stack_to->name);
 	temp = stack_from->head;
 	temp->prev->next = temp->next;
 	temp->next->prev = temp->prev;
-	temp->next = NULL;
-	temp->prev = NULL;
+	stack_from->head = temp->next;
 	stack_from->stack_size--;
 	if (stack_to->head == NULL)
 	{
+		stack_to->head = temp;
 		temp->next = temp;
 		temp->prev = temp;
+		stack_to->stack_size++;
 		return ;
 	}
 	temp->next = stack_to->head;
 	temp->prev = stack_to->head->prev;
+	stack_to->head = temp;
 	temp->prev->next = temp;
 	temp->next->prev = temp;
 	stack_to->stack_size++;

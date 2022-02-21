@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = push_swap.c init_stack.c stack_op.c
+SRCS = push_swap.c init_stack.c stack_op.c push_swap_utils.c stack_minmax.c
 
 BONUS_SRCS = $(SRCS)
 
@@ -23,7 +23,7 @@ all: $(NAME)
 $(NAME): $(SRCS) push_swap.h
 	@$(MAKE) bonus -C ./libft
 	@$(MAKE) clean -C ./libft
-	@$(CC) -o $(NAME) -I$(INCLUDES) -g $(SRCS) -L$(INCLUDES) -lft
+	@$(CC) -o $(NAME) -I$(INCLUDES) $(SRCS) -L$(INCLUDES) -lft
 
 clean:
 	@$(MAKE) clean -C ./libft
