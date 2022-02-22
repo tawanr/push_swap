@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 17:30:03 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:53:08 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	main(int argc, char **argv)
 	free(num_list);
 	if (!stack_a || !stack_b)
 		return (0);
-	print_stacks(stack_a, stack_b);
-	while (!(checksort(stack_a) && stack_a->stack_size == argc - 1))
+	//print_stacks(stack_a, stack_b);
+	while (!(checksort(stack_a) && stack_a->stack_size == (size_t)argc - 1))
 	{
 		if (checksort(stack_a))
 		{
@@ -42,16 +42,16 @@ int	main(int argc, char **argv)
 				sort_pushback(stack_a, stack_b);
 		}
 		else
-			sort_checkhead(stack_a, stack_b, stack_a->stack_size);
+			sort_checkhead(stack_a, stack_b);
 		//print_stacks(stack_a, stack_b);
 	}
 	while (stack_a->head->value != stack_getmin(stack_a))
 		stack_rotate(stack_a);
-	print_stacks(stack_a, stack_b);
+	//print_stacks(stack_a, stack_b);
 	return (1);
 }
 
-int	sort_pushback(t_stack *stack_a, t_stack *stack_b)
+void	sort_pushback(t_stack *stack_a, t_stack *stack_b)
 {
 	int	max_a;
 	int	min_a;
@@ -92,15 +92,12 @@ int	sort_pushback(t_stack *stack_a, t_stack *stack_b)
 	//print_stacks(stack_a, stack_b);
 }
 
-int	sort_checkhead(t_stack *stack_a, t_stack *stack_b, int max_size)
+void	sort_checkhead(t_stack *stack_a, t_stack *stack_b)
 {
 	if (stack_a->head->value > stack_a->head->next->value)
 		stack_swap(stack_a);
 	else if (stack_a->head->value > stack_a->head->prev->value)
-	{
 		stack_reverser(stack_a);
-		write(1, "rra\n", 4);
-	}
 	else
 	{
 		if (stack_b->stack_size <= 2)
@@ -162,7 +159,6 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 
 void	freearr(char **arr)
 {
-	char	*temp;
 	int		i;
 
 	i = 0;

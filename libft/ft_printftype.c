@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:42:22 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 15:25:46 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:27:41 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_printadd_hex(void *ptr)
 	}
 	printlen = 2;
 	write(1, "0x", 2);
-	out = ft_itoa_base((unsigned int)ptr, 16);
+	out = ft_itoa_base((unsigned int)(long)ptr, 16);
 	ft_putstr_fd(out, 1);
 	printlen += ft_strlen(out);
 	free(out);

@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 08:47:03 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 17:07:00 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:30:14 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b);
 int		sort_stack(t_stack *stack_a, t_stack *stack_b, int max_size);
 int		checkrevsort(t_stack *currstack);
 void	freearr(char **arr);
-int		sort_pushback(t_stack *stack_a, t_stack *stack_b);
-int		sort_checkhead(t_stack *stack_a, t_stack *stack_b, int max_size);
+void	sort_pushback(t_stack *stack_a, t_stack *stack_b);
+void	sort_checkhead(t_stack *stack_a, t_stack *stack_b);
 int		stack_getmin(t_stack *currstack);
 int		stack_getmax(t_stack *currstack);
 t_node	*stack_maxnode(t_stack *currstack);

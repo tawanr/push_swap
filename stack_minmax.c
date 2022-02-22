@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 21:57:47 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 21:57:47 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:31:05 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_node	*stack_minnode(t_stack *currstack)
 {
 	t_node	*temp;
-	int		i;
+	size_t	i;
 	t_node	*min_node;
 
 	if (currstack == NULL || currstack->stack_size <= 0)
@@ -35,7 +35,7 @@ t_node	*stack_minnode(t_stack *currstack)
 t_node	*stack_maxnode(t_stack *currstack)
 {
 	t_node	*temp;
-	int		i;
+	size_t	i;
 	t_node	*max_node;
 
 	if (currstack == NULL || currstack->stack_size <= 0)
@@ -55,7 +55,7 @@ t_node	*stack_maxnode(t_stack *currstack)
 int	stack_getmin(t_stack *currstack)
 {
 	t_node	*temp;
-	int		i;
+	size_t	i;
 	t_node	*min_node;
 
 	if (currstack == NULL || currstack->stack_size <= 0)
@@ -75,7 +75,7 @@ int	stack_getmin(t_stack *currstack)
 int	stack_getmax(t_stack *currstack)
 {
 	t_node	*temp;
-	int		i;
+	size_t	i;
 	t_node	*max_node;
 
 	if (currstack == NULL || currstack->stack_size <= 0)

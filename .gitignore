@@ -57,3 +57,6 @@ test*
 *.pdf
 push_swap
 TODO
+viz
+pyviz*
+checker*
