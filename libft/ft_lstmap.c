@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 23:07:47 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/15 23:07:47 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:00:52 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ t_list	*chk(t_list *new, void *(*f)(void *), void (*del)(void *), t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*newlist;
+	t_list	*temp;
 
 	if (!lst || !f || !del)
 		return (NULL);
 	newlist = NULL;
 	newlist = chk(newlist, f, del, lst);
-	t_list	*temp = newlist;
+	temp = newlist;
 	while (temp != NULL)
 		temp = temp->next;
 	return (newlist);

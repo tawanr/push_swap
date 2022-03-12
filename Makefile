@@ -6,11 +6,12 @@
 #    By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/15 23:45:11 by tratanat          #+#    #+#              #
-#    Updated: 2022/02/21 17:33:03 by tratanat         ###   ########.fr        #
+#    Updated: 2022/02/22 18:03:03 by tratanat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = push_swap.c init_stack.c stack_op.c push_swap_utils.c stack_minmax.c
+SRCS = push_swap.c init_stack.c stack_op.c	\
+	push_swap_utils.c stack_minmax.c stack_sort.c
 
 BONUS_SRCS = $(SRCS)
 
@@ -27,11 +28,11 @@ $(NAME): $(SRCS) push_swap.h
 
 clean:
 	@$(MAKE) clean -C ./libft
-	rm -rf *.o
+	@rm -rf *.o
 
 fclean: clean
 	@$(MAKE) fclean -C ./libft
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

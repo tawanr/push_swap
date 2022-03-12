@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 23:53:08 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:58:41 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,111 +33,31 @@ int	main(int argc, char **argv)
 	free(num_list);
 	if (!stack_a || !stack_b)
 		return (0);
-	//print_stacks(stack_a, stack_b);
 	while (!(checksort(stack_a) && stack_a->stack_size == (size_t)argc - 1))
 	{
 		if (checksort(stack_a))
-		{
 			while (stack_b->stack_size > 0)
+			{
 				sort_pushback(stack_a, stack_b);
-		}
+				print_stacks(stack_a, stack_b, argc - 1);
+			}
 		else
 			sort_checkhead(stack_a, stack_b);
-		//print_stacks(stack_a, stack_b);
+		if (DEBUG_MODE)
+			print_stacks(stack_a, stack_b, argc - 1);
 	}
 	while (stack_a->head->value != stack_getmin(stack_a))
 		stack_rotate(stack_a);
-	//print_stacks(stack_a, stack_b);
 	return (1);
 }
 
-void	sort_pushback(t_stack *stack_a, t_stack *stack_b)
-{
-	int	max_a;
-	int	min_a;
-	int max_b;
-
-	max_a = stack_getmax(stack_a);
-	min_a = stack_getmin(stack_a);
-	max_b = stack_getmax(stack_b);
-	while (stack_b->head->value != max_b)
-		stack_rotate(stack_b);
-	if (stack_getmax(stack_b) > max_a)
-	{
-		while (stack_a->head->prev->value != max_a)
-			stack_rotate(stack_a);
-		while (stack_b->head->value >= max_a)
-			stack_push(stack_b, stack_a);
-	}
-	if (stack_a->stack_size <= 1)
-		stack_push(stack_b, stack_a);
-	else if (stack_b->head->value <= stack_a->head->value)
-	{
-		if (stack_b->head->value < min_a)
-		{
-			while (stack_a->head->value > min_a)
-				stack_rotate(stack_a);
-		}
-		else
-			while (stack_b->head->value < stack_a->head->prev->value)
-				stack_reverser(stack_a);
-		stack_push(stack_b, stack_a);
-	}
-	else
-	{
-		while (stack_b->head->value > stack_a->head->value)
-			stack_rotate(stack_a);
-		stack_push(stack_b, stack_a);
-	}
-	//print_stacks(stack_a, stack_b);
-}
-
-void	sort_checkhead(t_stack *stack_a, t_stack *stack_b)
-{
-	if (stack_a->head->value > stack_a->head->next->value)
-		stack_swap(stack_a);
-	else if (stack_a->head->value > stack_a->head->prev->value)
-		stack_reverser(stack_a);
-	else
-	{
-		if (stack_b->stack_size <= 2)
-			stack_push(stack_a, stack_b);
-		else if (stack_a->head->value >= stack_b->head->value)
-		{
-			if (stack_a->head->value > stack_getmax(stack_b))
-				while (stack_b->head->value != stack_getmax(stack_b))
-					stack_rotate(stack_b);
-			else
-				while (stack_a->head->value > stack_b->head->prev->value)
-					stack_rotate(stack_b);
-			stack_push(stack_a, stack_b);
-		}
-		else
-		{
-			if (!(stack_a->head->value < stack_getmin(stack_b)))
-				while (stack_a->head->value < stack_b->head->value)
-					stack_rotate(stack_b);
-			else
-				while (stack_b->head->value != stack_getmin(stack_b))
-					stack_rotate(stack_b);
-			if (!(stack_a->head->value > stack_getmax(stack_b)))
-				while (stack_a->head->value > stack_b->head->prev->value)
-					stack_reverser(stack_b);
-			else
-				while (stack_b->head->value != stack_getmax(stack_b))
-					stack_rotate(stack_b);
-			stack_push(stack_a, stack_b);
-		}
-	}
-}
-
-void	print_stacks(t_stack *stack_a, t_stack *stack_b)
+void	print_stacks(t_stack *stack_a, t_stack *stack_b, size_t max_lines)
 {
 	size_t	i;
 	size_t	max_stack;
 	char	**out_a;
 	char	**out_b;
-
+	
 	if (stack_a->stack_size >= stack_b->stack_size)
 		max_stack = stack_a->stack_size;
 	else
@@ -145,7 +65,11 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 	i = 0;
 	out_a = get_stackarr(stack_a, max_stack);
 	out_b = get_stackarr(stack_b, max_stack);
-	printf("\n");
+	usleep(REFRESH_RATE);
+	system("clear");
+	while (i++ < max_lines - max_stack)
+		ft_printf("\n");
+	i = 0;
 	while (i < max_stack)
 	{
 		printf("%s\t|\t%s\n", out_a[i], out_b[i]);

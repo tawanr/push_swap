@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 08:47:03 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 23:30:14 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:58:30 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
+
+#define DEBUG_MODE 1
+#define REFRESH_RATE 200000
 
 typedef struct s_node
 {
@@ -42,7 +45,7 @@ int		get_numarr(int *num_list, char **charlist, int size);
 int		checknum(char *str);
 int		checksort(t_stack *currstack);
 char	**get_stackarr(t_stack *stack, size_t max_stack);
-void	print_stacks(t_stack *stack_a, t_stack *stack_b);
+void	print_stacks(t_stack *stack_a, t_stack *stack_b, size_t max_lines);
 int		sort_stack(t_stack *stack_a, t_stack *stack_b, int max_size);
 int		checkrevsort(t_stack *currstack);
 void	freearr(char **arr);

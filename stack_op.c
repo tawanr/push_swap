@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:37:18 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 17:17:50 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:50:51 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	stack_swap(t_stack *currstack)
 	temp->next = currstack->head;
 	currstack->head->prev = temp;
 	currstack->head = temp;
-	ft_printf("s%c\n", currstack->name);
+	if (!DEBUG_MODE)
+		ft_printf("s%c\n", currstack->name);
 	return ;
 }
 
@@ -34,7 +35,8 @@ void	stack_rotate(t_stack *currstack)
 {
 	if (currstack->head == NULL)
 		return ;
-	ft_printf("r%c\n", currstack->name);
+	if (!DEBUG_MODE)
+		ft_printf("r%c\n", currstack->name);
 	currstack->head = currstack->head->next;
 }
 
@@ -42,7 +44,8 @@ void	stack_reverser(t_stack *currstack)
 {
 	if (currstack->head == NULL)
 		return ;
-	ft_printf("rr%c\n", currstack->name);
+	if (!DEBUG_MODE)
+		ft_printf("rr%c\n", currstack->name);
 	currstack->head = currstack->head->prev;
 }
 
@@ -52,7 +55,8 @@ void	stack_push(t_stack *stack_from, t_stack *stack_to)
 
 	if (stack_from->head == NULL)
 		return ;
-	ft_printf("p%c\n", stack_to->name);
+	if (!DEBUG_MODE)
+		ft_printf("p%c\n", stack_to->name);
 	temp = stack_from->head;
 	temp->prev->next = temp->next;
 	temp->next->prev = temp->prev;
