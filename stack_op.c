@@ -6,13 +6,13 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:37:18 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/22 15:50:51 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/19 05:18:52 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stack_swap(t_stack *currstack)
+void	stack_swap(t_stack *currstack, t_queue *queue)
 {
 	t_node	*temp;
 
@@ -26,37 +26,41 @@ void	stack_swap(t_stack *currstack)
 	temp->next = currstack->head;
 	currstack->head->prev = temp;
 	currstack->head = temp;
-	if (!DEBUG_MODE)
-		ft_printf("s%c\n", currstack->name);
+	flushqueue(0, currstack->name, queue);
+	// if (!DEBUG_MODE)
+	// 	ft_printf("s%c\n", currstack->name);
 	return ;
 }
 
-void	stack_rotate(t_stack *currstack)
+void	stack_rotate(t_stack *currstack, t_queue *queue)
 {
 	if (currstack->head == NULL)
 		return ;
-	if (!DEBUG_MODE)
-		ft_printf("r%c\n", currstack->name);
+	addqueue(1, currstack->name, queue);
+	// if (!DEBUG_MODE)
+	// 	ft_printf("r%c\n", currstack->name);
 	currstack->head = currstack->head->next;
 }
 
-void	stack_reverser(t_stack *currstack)
+void	stack_reverser(t_stack *currstack, t_queue *queue)
 {
 	if (currstack->head == NULL)
 		return ;
-	if (!DEBUG_MODE)
-		ft_printf("rr%c\n", currstack->name);
+	addqueue(0, currstack->name, queue);
+	// if (!DEBUG_MODE)
+	// 	ft_printf("rr%c\n", currstack->name);
 	currstack->head = currstack->head->prev;
 }
 
-void	stack_push(t_stack *stack_from, t_stack *stack_to)
+void	stack_push(t_stack *stack_from, t_stack *stack_to, t_queue *queue)
 {
 	t_node	*temp;
 
 	if (stack_from->head == NULL)
 		return ;
-	if (!DEBUG_MODE)
-		ft_printf("p%c\n", stack_to->name);
+	flushqueue(1, stack_to->name, queue);
+	// if (!DEBUG_MODE)
+	// 	ft_printf("p%c\n", stack_to->name);
 	temp = stack_from->head;
 	temp->prev->next = temp->next;
 	temp->next->prev = temp->prev;

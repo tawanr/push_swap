@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 18:40:13 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/21 18:40:13 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/19 05:26:29 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**get_stackarr(t_stack *stack, size_t max_stack)
 {
-	size_t		i;
+	size_t	i;
 	char	**out;
 	t_node	*temp;
 
@@ -42,7 +42,7 @@ char	**get_stackarr(t_stack *stack, size_t max_stack)
 
 int	checksort(t_stack *currstack)
 {
-	size_t		i;
+	size_t	i;
 	t_node	*temp;
 
 	i = 0;
@@ -60,7 +60,7 @@ int	checksort(t_stack *currstack)
 
 int	checkrevsort(t_stack *currstack)
 {
-	size_t		i;
+	size_t	i;
 	t_node	*temp;
 
 	i = 0;

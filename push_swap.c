@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/22 17:58:41 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/19 06:57:40 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	main(int argc, char **argv)
 	int		size;
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	t_queue *queue;
+	int		dir;
 
+	queue = initqueue();
 	size = argc - 1;
 	num_list = (int *)malloc((argc - 1) * sizeof(int));
 	if (argc <= 1)
@@ -36,18 +39,31 @@ int	main(int argc, char **argv)
 	while (!(checksort(stack_a) && stack_a->stack_size == (size_t)argc - 1))
 	{
 		if (checksort(stack_a))
+		{
 			while (stack_b->stack_size > 0)
 			{
-				sort_pushback(stack_a, stack_b);
-				print_stacks(stack_a, stack_b, argc - 1);
+				sort_pushback(stack_a, stack_b, queue);
+				if (DEBUG_MODE)
+					print_stacks(stack_a, stack_b, argc - 1);
 			}
+		}
 		else
-			sort_checkhead(stack_a, stack_b);
+			sort_checkhead(stack_a, stack_b, queue);
 		if (DEBUG_MODE)
 			print_stacks(stack_a, stack_b, argc - 1);
 	}
+	dir = stack_getmindir(stack_a);
 	while (stack_a->head->value != stack_getmin(stack_a))
-		stack_rotate(stack_a);
+	{
+		if (dir == 1)
+			stack_rotate(stack_a, queue);
+		else
+			stack_reverser(stack_a, queue);
+	}
+	flushqueue(-1, ' ', queue);
+	if (DEBUG_MODE)
+		print_stacks(stack_a, stack_b, argc - 1);
+	free(queue);
 	return (1);
 }
 
@@ -57,7 +73,7 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b, size_t max_lines)
 	size_t	max_stack;
 	char	**out_a;
 	char	**out_b;
-	
+
 	if (stack_a->stack_size >= stack_b->stack_size)
 		max_stack = stack_a->stack_size;
 	else
