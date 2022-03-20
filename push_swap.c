@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 10:10:29 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 15:47:53 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,22 @@ int	main(int argc, char **argv)
 	if (DEBUG_MODE)
 		print_stacks(stack_a, stack_b, argc - 1);
 	free(queue);
-	return (1);
+	return (0);
 }
 
 void	dosort(t_stack *stack_a, t_stack *stack_b, t_queue *queue, size_t size)
 {
-	static t_lim	limits = {0, 0};
+	static t_lim	limits = {0, 0, 0};
 	int				arr_size;
 	int				*array;
 	int				div;
 
 	arr_size = getsortedarr(stack_a, &array);
 	div = 1;
-	if (arr_size > 100)
-		div = arr_size / 50;
+	if (arr_size > 50 && arr_size <= 200)
+		div = arr_size / 15;
+	else if (arr_size > 200)
+		div = arr_size / 25;
 	getlims(&limits, array, div, arr_size);
 	while (!(checksort(stack_a) && stack_a->stack_size == size))
 	{
@@ -87,25 +89,50 @@ void	getlims(t_lim *limits, int *array, int div, int arr_size)
 	static int	count = 0;
 
 	count++;
-	limits->low_lim = array[(count - 1) * (arr_size / div)];
-	limits->high_lim = array[(count * (arr_size / div)) - 1];
+	if (count == div)
+	{
+		limits->low_lim = array[0];
+		limits->high_lim = array[arr_size - 1];
+		limits->next_lim = limits->high_lim;
+	}
+	else if (count == 1)
+	{
+		limits->low_lim = array[(int)((count - 1) * (float)(arr_size / div))];
+		limits->high_lim = array[(int)((float)(count * (arr_size / div))) - 1];
+		limits->next_lim = limits->high_lim;
+		if (!(count > div - 2))
+			limits->next_lim = array[(int)((float)((count + 1) * (arr_size / div))) - 1];
+	}
+	else
+	{
+		limits->low_lim = limits->high_lim;
+		limits->high_lim = array[(count * (arr_size / div)) - 1];
+		limits->next_lim = limits->high_lim;
+		if (!(count > div - 2))
+			limits->next_lim = array[(int)((float)((count + 1) * (arr_size / div))) - 1];
+	}
 }
 
-int	inlims(t_lim *limits, t_stack *stack)
+int	inlims(t_lim *limits, t_stack *stack_a)
 {
 	t_node	*temp;
 	size_t	i;
+	int		count;
 
 	i = 0;
-	temp = stack->head;
-	while (i < stack->stack_size)
+	count = 0;
+	temp = stack_a->head;
+	while (i < stack_a->stack_size)
 	{
-		if (temp->value > limits->high_lim || temp->value < limits->low_lim)
-			return (0);
+		if (temp->value <= limits->high_lim && temp->value >= limits->low_lim)
+			count++;
 		temp = temp->next;
 		i++;
 	}
-	return (1);
+	if (count > 0)
+		return (1);
+	else
+		return (0);
 }
 
 void	print_stacks(t_stack *stack_a, t_stack *stack_b, size_t max_lines)

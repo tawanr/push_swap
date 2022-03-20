@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 08:47:03 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 10:10:33 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 14:54:43 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "libft.h"
 
 # define DEBUG_MODE 0
-# define REFRESH_RATE 550000
+# define REFRESH_RATE 50000
 
 typedef struct s_node
 {
@@ -44,6 +44,7 @@ typedef struct s_lim
 {
 	int	low_lim;
 	int	high_lim;
+	int	next_lim;
 }	t_lim;
 
 t_stack	*init_stack(int *num_list, size_t size, char name);
@@ -79,10 +80,11 @@ int		getsortedarr(t_stack *stack, int **array);
 void	recursivesort(int *array, int low, int high);
 int		quicksort(int *array, int low, int high);
 void	ft_swap(int *a, int *b);
-int		inlims(t_lim *limits, t_stack *stack);
+int		inlims(t_lim *limits, t_stack *stack_a);
 int		stack_getlims(t_stack *stack, t_lim *limits);
 int		list_getmedian(t_stack *stack, int max_size);
 void	dosort(t_stack *stack_a, t_stack *stack_b, t_queue *queue, size_t size);
 void	getlims(t_lim *limits, int *array, int div, int arr_size);
+void	findbreak(t_stack *stack, t_lim *limits, t_queue *queue);
 
 #endif

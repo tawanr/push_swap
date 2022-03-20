@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:37:18 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/19 05:18:52 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 14:03:17 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	stack_swap(t_stack *currstack, t_queue *queue)
 	currstack->head->prev = temp;
 	currstack->head = temp;
 	flushqueue(0, currstack->name, queue);
-	// if (!DEBUG_MODE)
-	// 	ft_printf("s%c\n", currstack->name);
 	return ;
 }
 
@@ -37,8 +35,6 @@ void	stack_rotate(t_stack *currstack, t_queue *queue)
 	if (currstack->head == NULL)
 		return ;
 	addqueue(1, currstack->name, queue);
-	// if (!DEBUG_MODE)
-	// 	ft_printf("r%c\n", currstack->name);
 	currstack->head = currstack->head->next;
 }
 
@@ -47,8 +43,6 @@ void	stack_reverser(t_stack *currstack, t_queue *queue)
 	if (currstack->head == NULL)
 		return ;
 	addqueue(0, currstack->name, queue);
-	// if (!DEBUG_MODE)
-	// 	ft_printf("rr%c\n", currstack->name);
 	currstack->head = currstack->head->prev;
 }
 

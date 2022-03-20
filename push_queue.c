@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 20:51:38 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/19 07:18:46 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 12:01:12 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	flushqueue(int op, char name, t_queue *queue)
 		queue->rotate_a--;
 		queue->rotate_b--;
 		if (!DEBUG_MODE)
-			ft_printf("rr\n");
+			printf("rr\n");
 	}
 	while (queue->rotate_a < 0 && queue->rotate_b < 0)
 	{
 		queue->rotate_a++;
 		queue->rotate_b++;
 		if (!DEBUG_MODE)
-			ft_printf("rrr\n");
+			printf("rrr\n");
 	}
 	while (*rotate_a != 0)
 	{
@@ -60,13 +60,13 @@ void	flushqueue(int op, char name, t_queue *queue)
 		{
 			(*rotate_a)++;
 			if (!DEBUG_MODE)
-				ft_printf("rra\n");
+				printf("rra\n");
 		}
 		else
 		{
 			(*rotate_a)--;
 			if (!DEBUG_MODE)
-				ft_printf("ra\n");
+				printf("ra\n");
 		}
 	}
 	while (*rotate_b != 0)
@@ -75,17 +75,17 @@ void	flushqueue(int op, char name, t_queue *queue)
 		{
 			(*rotate_b)++;
 			if (!DEBUG_MODE)
-				ft_printf("rrb\n");
+				printf("rrb\n");
 		}
 		else
 		{
 			(*rotate_b)--;
 			if (!DEBUG_MODE)
-				ft_printf("rb\n");
+				printf("rb\n");
 		}
 	}
 	if (op != -1 && !DEBUG_MODE)
-		ft_printf("%c%c\n", op_type[op], name);
+		printf("%c%c\n", op_type[op], name);
 }
 
 t_queue	*initqueue(void)

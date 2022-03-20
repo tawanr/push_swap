@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 17:58:09 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 09:46:37 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 15:40:45 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,15 @@ void	sort_pushback(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 	{
 		dir = stack_getmaxdir(stack_a);
 		while (stack_a->head->value != stack_getmax(stack_a))
-			roptr[stack_getmaxdir(stack_a)](stack_a, queue);
+			roptr[dir](stack_a, queue);
+		dir = stack_getmaxdir(stack_b);
+		while (!(stack_b->head->value > stack_getmax(stack_a)))
+		{
+			roptr[dir](stack_b, queue);
+			while (stack_b->head->value >= stack_getmax(stack_a))
+				stack_push(stack_b, stack_a, queue);
+		}
 	}
-	if (stack_getmax(stack_b) > stack_getmax(stack_a))
-		while (stack_b->head->value >= stack_getmax(stack_a))
-			stack_push(stack_b, stack_a, queue);
 	if (stack_b->head->value <= stack_a->head->value)
 	{
 		if (stack_b->head->value < stack_getmin(stack_a))
@@ -81,7 +85,7 @@ void	sort_pushback(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 		else
 		{
 			dir = st_brdir(stack_b->head->value, stack_a);
-			while (!(stack_b->head->value > stack_a->head->prev->value	\
+			while (!(stack_b->head->value > stack_a->head->prev->value \
 			&& stack_b->head->value < stack_a->head->value))
 				roptr[dir](stack_a, queue);
 		}
@@ -90,7 +94,8 @@ void	sort_pushback(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 	else
 	{
 		dir = st_bdir(stack_b->head->value, stack_a);
-		while (stack_b->head->value > stack_a->head->value)
+		while (!(stack_b->head->value < stack_a->head->value \
+		&& stack_b->head->value > stack_a->head->prev->value))
 			roptr[dir](stack_a, queue);
 		stack_push(stack_b, stack_a, queue);
 	}
@@ -110,7 +115,8 @@ int	list_getmedian(t_stack *stack, int max_size)
 void	sort_checkhead(t_stack *stack_a, t_stack *stack_b, t_queue *queue, t_lim *lims)
 {
 	void	(*roptr[2])(t_stack *, t_queue *);
-	int		dir;
+	// int		credit;
+	// int		dir;
 
 	roptr[0] = &stack_reverser;
 	roptr[1] = &stack_rotate;
@@ -120,55 +126,67 @@ void	sort_checkhead(t_stack *stack_a, t_stack *stack_b, t_queue *queue, t_lim *l
 		stack_reverser(stack_a, queue);
 	else
 	{
-		dir = stack_getlims(stack_a, lims);
-		while (!(stack_a->head->value <= lims->high_lim && stack_a->head->value >= lims->low_lim))
-			roptr[dir](stack_a, queue);
-		if (stack_b->stack_size <= 2)
-			stack_push(stack_a, stack_b, queue);
-		else if (stack_a->head->value >= stack_b->head->value)
-		{
-			if (stack_a->head->value > stack_getmax(stack_b))
-			{
-				dir = stack_getmaxdir(stack_b);
-				while (stack_b->head->value != stack_getmax(stack_b))
-					roptr[dir](stack_b, queue);
-			}
-			else
-			{
-				dir = st_brdir(stack_a->head->value, stack_b);
-				while (stack_a->head->value > stack_b->head->prev->value)
-					roptr[dir](stack_b, queue);
-			}
-			stack_push(stack_a, stack_b, queue);
-		}
-		else
-		{
-			if (!(stack_a->head->value < stack_getmin(stack_b)))
-			{
-				dir = st_bdir(stack_a->head->value, stack_b);
-				while (stack_a->head->value < stack_b->head->value)
-					roptr[dir](stack_b, queue);
-			}
-			else
-			{
-				dir = stack_getmindir(stack_b);
-				while (stack_b->head->value != stack_getmin(stack_b))
-					roptr[dir](stack_b, queue);
-			}
-			if (!(stack_a->head->value > stack_getmax(stack_b)))
-			{
-				dir = st_brdir(stack_a->head->value, stack_b);
-				while (stack_a->head->value > stack_b->head->prev->value)
-					roptr[dir](stack_b, queue);
-			}
-			else
-			{
-				dir = stack_getmaxdir(stack_b);
-				while (stack_b->head->value != stack_getmax(stack_b))
-					roptr[dir](stack_b, queue);
-			}
-			stack_push(stack_a, stack_b, queue);
-		}
+		while (!(stack_a->head->value <= lims->next_lim && stack_a->head->value >= lims->low_lim))
+			roptr[1](stack_a, queue);
+		// credit = queue->rotate_a - queue->rotate_b;
+		// while (credit > 0)
+		// {
+		// 	if (stack_b->stack_size > 2 && stack_a->head->value < stack_b->head->value)
+		// 	{
+		// 		if (stack_b->head->next->value > lims->low_lim)
+		// 			roptr[1](stack_b, queue);
+		// 	}
+		// 	credit--;
+		// }
+		stack_push(stack_a, stack_b, queue);
+		if (stack_b->head->value > lims->high_lim)
+			roptr[1](stack_b, queue);
+		// if (stack_b->stack_size <= 2)
+		// 	stack_push(stack_a, stack_b, queue);
+		// else if (stack_a->head->value >= stack_b->head->value)
+		// {
+		// 	if (stack_a->head->value > stack_getmax(stack_b))
+		// 	{
+		// 		dir = stack_getmaxdir(stack_b);
+		// 		while (stack_b->head->value != stack_getmax(stack_b))
+		// 			roptr[dir](stack_b, queue);
+		// 	}
+		// 	else
+		// 	{
+		// 		dir = st_brdir(stack_a->head->value, stack_b);
+		// 		while (stack_a->head->value > stack_b->head->prev->value)
+		// 			roptr[dir](stack_b, queue);
+		// 	}
+		// 	stack_push(stack_a, stack_b, queue);
+		// }
+		// else
+		// {
+		// 	if (!(stack_a->head->value < stack_getmin(stack_b)))
+		// 	{
+		// 		dir = st_bdir(stack_a->head->value, stack_b);
+		// 		while (stack_a->head->value < stack_b->head->value)
+		// 			roptr[dir](stack_b, queue);
+		// 	}
+		// 	else
+		// 	{
+		// 		dir = stack_getmindir(stack_b);
+		// 		while (stack_b->head->value != stack_getmin(stack_b))
+		// 			roptr[dir](stack_b, queue);
+		// 	}
+		// 	if (!(stack_a->head->value > stack_getmax(stack_b)))
+		// 	{
+		// 		dir = st_brdir(stack_a->head->value, stack_b);
+		// 		while (stack_a->head->value > stack_b->head->prev->value)
+		// 			roptr[dir](stack_b, queue);
+		// 	}
+		// 	else
+		// 	{
+		// 		dir = stack_getmaxdir(stack_b);
+		// 		while (stack_b->head->value != stack_getmax(stack_b))
+		// 			roptr[dir](stack_b, queue);
+		// 	}
+		// 	stack_push(stack_a, stack_b, queue);
+		// }
 	}
 }
 
