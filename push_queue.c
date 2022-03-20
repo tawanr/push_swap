@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 20:51:38 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 12:01:12 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 20:09:00 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	addqueue(int op, char name, t_queue *queue)
 	}
 }
 
-// op: 0 - swap; 1 - push
+// op: 0 - swap; 1 - push; 2 - swap both
 void	flushqueue(int op, char name, t_queue *queue)
 {
 	int			*rotate_a;
@@ -44,48 +44,45 @@ void	flushqueue(int op, char name, t_queue *queue)
 	{
 		queue->rotate_a--;
 		queue->rotate_b--;
-		if (!DEBUG_MODE)
-			printf("rr\n");
+		ft_printf("rr\n");
 	}
 	while (queue->rotate_a < 0 && queue->rotate_b < 0)
 	{
 		queue->rotate_a++;
 		queue->rotate_b++;
-		if (!DEBUG_MODE)
-			printf("rrr\n");
+		ft_printf("rrr\n");
 	}
+	printrot(rotate_a, rotate_b);
+	if (op == 2)
+		ft_printf("ss\n");
+	if (op != -1 && op != 2)
+		ft_printf("%c%c\n", op_type[op], name);
+}
+
+void	printrot(int *rotate_a, int *rotate_b)
+{
 	while (*rotate_a != 0)
 	{
 		if (*rotate_a < 0)
 		{
 			(*rotate_a)++;
-			if (!DEBUG_MODE)
-				printf("rra\n");
+			ft_printf("rra\n");
+			continue ;
 		}
-		else
-		{
-			(*rotate_a)--;
-			if (!DEBUG_MODE)
-				printf("ra\n");
-		}
+		(*rotate_a)--;
+		ft_printf("ra\n");
 	}
 	while (*rotate_b != 0)
 	{
 		if (*rotate_b < 0)
 		{
 			(*rotate_b)++;
-			if (!DEBUG_MODE)
-				printf("rrb\n");
+			ft_printf("rrb\n");
+			continue ;
 		}
-		else
-		{
-			(*rotate_b)--;
-			if (!DEBUG_MODE)
-				printf("rb\n");
-		}
+		(*rotate_b)--;
+		ft_printf("rb\n");
 	}
-	if (op != -1 && !DEBUG_MODE)
-		printf("%c%c\n", op_type[op], name);
 }
 
 t_queue	*initqueue(void)

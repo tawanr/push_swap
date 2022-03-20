@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 20:20:06 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 07:41:31 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 20:20:32 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,15 @@ int	st_bdir(int value, t_stack *stack)
 	size_t	pos;
 	t_node	*temp;
 	t_node	*prev;
-	t_node	*next;
 
 	temp = stack->head;
 	prev = stack->head->prev;
-	next = stack->head->next;
 	pos = 0;
-	while (!(value > prev->value && value < next->value))
+	while (!(value > prev->value && value < temp->value))
 	{
 		pos++;
 		temp = temp->next;
 		prev = temp->prev;
-		next = temp->next;
 		if ((float)pos > (float)stack->stack_size / 2)
 			return (0);
 	}
@@ -78,18 +75,15 @@ int	st_brdir(int value, t_stack *stack)
 	size_t	pos;
 	t_node	*temp;
 	t_node	*prev;
-	t_node	*next;
 
 	temp = stack->head;
 	prev = stack->head->prev;
-	next = stack->head->next;
 	pos = 0;
-	while (!(value < prev->value && value > next->value))
+	while (!(value < prev->value && value > temp->value))
 	{
 		pos++;
 		temp = temp->next;
 		prev = temp->prev;
-		next = temp->next;
 		if ((float)pos > (float)stack->stack_size / 2)
 			return (0);
 	}

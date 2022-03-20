@@ -6,35 +6,37 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 19:55:22 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 14:42:11 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:45:15 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	findbreak(t_stack *stack, t_lim *limits, t_queue *queue)
+void	ft_cleanup(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 {
-	size_t	i;
-	int		dir;
-	void	(*roptr[2])(t_stack *, t_queue *);
-	t_node	*temp;
+	flushqueue(-1, ' ', queue);
+	stack_free(stack_a);
+	stack_free(stack_b);
+	free(queue);
+}
 
-	roptr[0] = &stack_reverser;
-	roptr[1] = &stack_rotate;
-	i = 0;
-	temp = stack->head;
-	while (!(temp->value <= limits->high_lim \
-		&& temp->value >= limits->low_lim && \
-		temp->prev->value < limits->low_lim))
+void	stack_arrange(t_stack *stack_a, t_queue *queue)
+{
+	int		dir;
+
+	dir = stack_getmindir(stack_a);
+	while (stack_a->head->value != stack_getmin(stack_a))
 	{
-		temp = temp->next;
-		i++;
+		if (dir == 1)
+			stack_rotate(stack_a, queue);
+		else
+			stack_reverser(stack_a, queue);
 	}
-	dir = 1;
-	if (i > stack->stack_size / 2)
-		dir = 0;
-	while (!(stack->head->value <= limits->high_lim \
-		&& stack->head->value >= limits->low_lim && \
-		stack->head->prev->value < limits->low_lim))
-		roptr[dir](stack, queue);
+}
+
+void	printerror(int *num_list)
+{
+	write(2, "Error\n", 6);
+	free(num_list);
+	exit (-1);
 }

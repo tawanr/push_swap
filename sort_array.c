@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/19 14:05:23 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 10:08:36 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:21:03 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	getsortedarr(t_stack *stack, int **array)
 		i++;
 	}
 	recursivesort(*array, low, high);
-	// for (size_t i = 0; i < stack->stack_size; i++)
-	// 	printf("array[%ld]: %i\n", i, (*array)[i]);
 	return (stack->stack_size);
 }
 

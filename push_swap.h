@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 08:47:03 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 14:54:43 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 20:24:17 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "libft.h"
-
-# define DEBUG_MODE 0
-# define REFRESH_RATE 50000
 
 typedef struct s_node
 {
@@ -58,12 +55,9 @@ int		get_numarr(int *num_list, char **charlist, int size);
 int		checknum(char *str);
 int		checksort(t_stack *currstack);
 char	**get_stackarr(t_stack *stack, size_t max_stack);
-void	print_stacks(t_stack *stack_a, t_stack *stack_b, size_t max_lines);
 int		sort_stack(t_stack *stack_a, t_stack *stack_b, int max_size);
-int		checkrevsort(t_stack *currstack);
-void	freearr(char **arr);
 void	sort_pushback(t_stack *stack_a, t_stack *stack_b, t_queue *queue);
-void	sort_checkhead(t_stack *stack_a, t_stack *stack_b, t_queue *queue, t_lim *lims);
+void	sort_checkhead(t_stack *sta, t_stack *stb, t_queue *queue, t_lim *lims);
 int		stack_getmin(t_stack *currstack);
 int		stack_getmax(t_stack *currstack);
 t_node	*stack_maxnode(t_stack *currstack);
@@ -75,16 +69,20 @@ int		st_brdir(int value, t_stack *stack);
 t_queue	*initqueue(void);
 void	addqueue(int op, char name, t_queue *queue);
 void	flushqueue(int op, char name, t_queue *queue);
-t_queue	*initqueue(void);
 int		getsortedarr(t_stack *stack, int **array);
 void	recursivesort(int *array, int low, int high);
 int		quicksort(int *array, int low, int high);
 void	ft_swap(int *a, int *b);
 int		inlims(t_lim *limits, t_stack *stack_a);
 int		stack_getlims(t_stack *stack, t_lim *limits);
-int		list_getmedian(t_stack *stack, int max_size);
 void	dosort(t_stack *stack_a, t_stack *stack_b, t_queue *queue, size_t size);
 void	getlims(t_lim *limits, int *array, int div, int arr_size);
-void	findbreak(t_stack *stack, t_lim *limits, t_queue *queue);
+void	ft_cleanup(t_stack *stack_a, t_stack *stack_b, t_queue *queue);
+void	stack_arrange(t_stack *stack_a, t_queue *queue);
+void	printrot(int *rotate_a, int *rotate_b);
+void	printerror(int *num_list);
+void	push_main(t_stack *sta, t_stack *stb, t_queue *queue);
+void	rotate_target(t_stack *sta, t_stack *stb, t_queue *queue);
+void	stack_bothswap(t_stack *sta, t_stack *stb, t_queue *queue);
 
 #endif

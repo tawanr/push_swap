@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 22:37:07 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/20 22:22:47 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:50:46 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
-	
+
 	i = 0;
 	if (s == NULL)
 	{

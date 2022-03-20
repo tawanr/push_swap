@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 18:40:13 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 06:22:16 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:49:36 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,51 +58,24 @@ int	checksort(t_stack *currstack)
 	return (1);
 }
 
-int	checkrevsort(t_stack *currstack)
-{
-	size_t	i;
-	t_node	*temp;
-
-	i = 0;
-	if (currstack->stack_size <= 1)
-		return (1);
-	temp = stack_maxnode(currstack)->next;
-	while (i++ < currstack->stack_size - 1)
-	{
-		if (!(temp->value <= temp->prev->value))
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
 int	get_numarr(int *num_list, char **charlist, int size)
 {
-	int	i;
-	int	current;
-	int	j;
+	int			i;
+	long long	current;
+	int			j;
 
 	i = 0;
 	while (i < size)
 	{
 		if (!checknum(charlist[i]) || ft_strlen(charlist[i]) > 11)
-		{
-			write(2, "Error\n", 6);
-			free(num_list);
-			return (0);
-		}
+			printerror(num_list);
 		current = ft_atoi(charlist[i]);
+		if (current > 2147483647 || current < -2147483648)
+			printerror(num_list);
 		j = 0;
 		while (j < i)
-		{
-			if (num_list[j] == current)
-			{
-				write(2, "Error\n", 6);
-				free(num_list);
-				return (0);
-			}
-			j++;
-		}
+			if (num_list[j++] == current)
+				printerror(num_list);
 		num_list[i] = ft_atoi(charlist[i]);
 		i++;
 	}

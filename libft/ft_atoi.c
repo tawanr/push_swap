@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 00:09:14 by tratanat          #+#    #+#             */
-/*   Updated: 2022/02/16 00:09:14 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:49:32 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	ft_isspace(char c);
 
-int	ft_atoi(const char *str)
+long long int	ft_atoi(const char *str)
 {
-	int	i;
-	int	negative;
-	int	output;
+	int				i;
+	int				negative;
+	long long int	output;
 
 	i = 0;
 	negative = 1;
