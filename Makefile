@@ -6,13 +6,13 @@
 #    By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/15 23:45:11 by tratanat          #+#    #+#              #
-#    Updated: 2022/03/18 23:45:32 by tratanat         ###   ########.fr        #
+#    Updated: 2022/03/20 07:45:13 by tratanat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = push_swap.c init_stack.c stack_op.c	\
 	push_swap_utils.c stack_minmax.c stack_sort.c	\
-	stack_comp.c push_queue.c
+	stack_comp.c push_queue.c sort_array.c
 
 BONUS_SRCS = $(SRCS)
 

@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 20:20:06 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/19 04:46:45 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 07:41:31 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,30 @@ int	st_brdir(int value, t_stack *stack)
 		if ((float)pos > (float)stack->stack_size / 2)
 			return (0);
 	}
+	return (1);
+}
+
+int	stack_getlims(t_stack *stack, t_lim *limits)
+{
+	t_node	*temp;
+	int		head_dir;
+	int		tail_dir;
+
+	temp = stack->head;
+	head_dir = 0;
+	tail_dir = 0;
+	while (!(temp->value >= limits->low_lim && temp->value <= limits->high_lim))
+	{
+		temp = temp->next;
+		head_dir++;
+	}
+	temp = stack->head;
+	while (!(temp->value >= limits->low_lim && temp->value <= limits->high_lim))
+	{
+		temp = temp->prev;
+		tail_dir++;
+	}
+	if (head_dir > tail_dir)
+		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/19 06:57:40 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 10:10:29 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,23 @@
 int	main(int argc, char **argv)
 {
 	int		*num_list;
-	int		size;
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	t_queue *queue;
+	t_queue	*queue;
 	int		dir;
 
 	queue = initqueue();
-	size = argc - 1;
 	num_list = (int *)malloc((argc - 1) * sizeof(int));
 	if (argc <= 1)
 		return (-1);
-	if (!get_numarr(num_list, argv + 1, size))
+	if (!get_numarr(num_list, argv + 1, (size_t)argc - 1))
 		return (-1);
-	stack_a = init_stack(num_list, size, 'a');
+	stack_a = init_stack(num_list, (size_t)argc - 1, 'a');
 	stack_b = init_stack(NULL, 0, 'b');
 	free(num_list);
 	if (!stack_a || !stack_b)
 		return (0);
-	while (!(checksort(stack_a) && stack_a->stack_size == (size_t)argc - 1))
-	{
-		if (checksort(stack_a))
-		{
-			while (stack_b->stack_size > 0)
-			{
-				sort_pushback(stack_a, stack_b, queue);
-				if (DEBUG_MODE)
-					print_stacks(stack_a, stack_b, argc - 1);
-			}
-		}
-		else
-			sort_checkhead(stack_a, stack_b, queue);
-		if (DEBUG_MODE)
-			print_stacks(stack_a, stack_b, argc - 1);
-	}
+	dosort(stack_a, stack_b, queue, (size_t)argc - 1);
 	dir = stack_getmindir(stack_a);
 	while (stack_a->head->value != stack_getmin(stack_a))
 	{
@@ -64,6 +47,64 @@ int	main(int argc, char **argv)
 	if (DEBUG_MODE)
 		print_stacks(stack_a, stack_b, argc - 1);
 	free(queue);
+	return (1);
+}
+
+void	dosort(t_stack *stack_a, t_stack *stack_b, t_queue *queue, size_t size)
+{
+	static t_lim	limits = {0, 0};
+	int				arr_size;
+	int				*array;
+	int				div;
+
+	arr_size = getsortedarr(stack_a, &array);
+	div = 1;
+	if (arr_size > 100)
+		div = arr_size / 50;
+	getlims(&limits, array, div, arr_size);
+	while (!(checksort(stack_a) && stack_a->stack_size == size))
+	{
+		if (!inlims(&limits, stack_a))
+			getlims(&limits, array, div, arr_size);
+		if (checksort(stack_a))
+		{
+			while (stack_b->stack_size > 0)
+			{
+				sort_pushback(stack_a, stack_b, queue);
+				if (DEBUG_MODE)
+					print_stacks(stack_a, stack_b, size);
+			}
+		}
+		else
+			sort_checkhead(stack_a, stack_b, queue, &limits);
+		if (DEBUG_MODE)
+			print_stacks(stack_a, stack_b, size);
+	}
+}
+
+void	getlims(t_lim *limits, int *array, int div, int arr_size)
+{
+	static int	count = 0;
+
+	count++;
+	limits->low_lim = array[(count - 1) * (arr_size / div)];
+	limits->high_lim = array[(count * (arr_size / div)) - 1];
+}
+
+int	inlims(t_lim *limits, t_stack *stack)
+{
+	t_node	*temp;
+	size_t	i;
+
+	i = 0;
+	temp = stack->head;
+	while (i < stack->stack_size)
+	{
+		if (temp->value > limits->high_lim || temp->value < limits->low_lim)
+			return (0);
+		temp = temp->next;
+		i++;
+	}
 	return (1);
 }
 

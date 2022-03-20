@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 17:58:09 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/19 06:50:03 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 09:46:37 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	sort_pushback(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 		else
 		{
 			dir = st_brdir(stack_b->head->value, stack_a);
-			while (!(stack_b->head->value > stack_a->head->prev->value && stack_b->head->value < stack_a->head->value))
+			while (!(stack_b->head->value > stack_a->head->prev->value	\
+			&& stack_b->head->value < stack_a->head->value))
 				roptr[dir](stack_a, queue);
 		}
 		stack_push(stack_b, stack_a, queue);
@@ -95,27 +96,6 @@ void	sort_pushback(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 	}
 }
 
-int	stack_opt_rotate(t_stack *stack, t_node *target, t_queue *queue)
-{
-	size_t	move_count;
-	t_node	*temp;
-
-	move_count = 0;
-	temp = stack->head;
-	while (temp != target)
-	{
-		temp = temp->next;
-		move_count++;
-	}
-	if (move_count <= stack->stack_size / 2)
-		while (stack->head != target)
-			stack_rotate(stack, queue);
-	else
-		while (stack->head != target)
-			stack_reverser(stack, queue);
-	return (1);
-}
-
 int	list_getmedian(t_stack *stack, int max_size)
 {
 	char	**arr;
@@ -127,7 +107,7 @@ int	list_getmedian(t_stack *stack, int max_size)
 	return (median);
 }
 
-void	sort_checkhead(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
+void	sort_checkhead(t_stack *stack_a, t_stack *stack_b, t_queue *queue, t_lim *lims)
 {
 	void	(*roptr[2])(t_stack *, t_queue *);
 	int		dir;
@@ -140,6 +120,9 @@ void	sort_checkhead(t_stack *stack_a, t_stack *stack_b, t_queue *queue)
 		stack_reverser(stack_a, queue);
 	else
 	{
+		dir = stack_getlims(stack_a, lims);
+		while (!(stack_a->head->value <= lims->high_lim && stack_a->head->value >= lims->low_lim))
+			roptr[dir](stack_a, queue);
 		if (stack_b->stack_size <= 2)
 			stack_push(stack_a, stack_b, queue);
 		else if (stack_a->head->value >= stack_b->head->value)
