@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 17:58:09 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 20:39:30 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/20 21:22:38 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	sort_checkhead(t_stack *sta, t_stack *stb, t_queue *queue, t_lim *lims)
 {
 	int		nxt;
 	int		a_head;
+	int		low;
 
+	low = lims->low_lim;
 	nxt = lims->next_lim;
 	a_head = sta->head->value;
 	if (sta->head->value > sta->head->next->value)
@@ -95,8 +97,9 @@ void	sort_checkhead(t_stack *sta, t_stack *stb, t_queue *queue, t_lim *lims)
 		stack_swap(sta, queue);
 	else
 	{
-		while (!(sta->head->value <= nxt && sta->head->value >= lims->low_lim))
-			stack_rotate(sta, queue);
+		if (inlims(lims, sta))
+			while (!(sta->head->value <= nxt && sta->head->value >= low))
+				stack_rotate(sta, queue);
 		if (stb->stack_size > 2 && a_head > lims->high_lim)
 			if (a_head > stb->head->prev->value && queue->rotate_a < 0)
 				stack_reverser(stb, queue);
