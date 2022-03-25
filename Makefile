@@ -6,7 +6,7 @@
 #    By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/15 23:45:11 by tratanat          #+#    #+#              #
-#    Updated: 2022/03/23 09:00:24 by tratanat         ###   ########.fr        #
+#    Updated: 2022/03/25 23:34:39 by tratanat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,11 @@ $(NAME): $(OBJS) push_swap.h
 	@$(CC) $(OBJS) -g -I$(INCLUDES) -o $(NAME) -L$(INCLUDES) -lft
 clean:
 	@$(MAKE) clean -C ./libft
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
 	@$(MAKE) fclean -C ./libft
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 

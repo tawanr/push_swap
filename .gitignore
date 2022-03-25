@@ -60,3 +60,5 @@ TODO
 viz
 pyviz*
 checker*
+!*bonus.c
+!*bonus.h
