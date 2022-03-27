@@ -6,7 +6,7 @@
 #    By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/15 23:45:11 by tratanat          #+#    #+#              #
-#    Updated: 2022/03/25 23:34:39 by tratanat         ###   ########.fr        #
+#    Updated: 2022/03/27 10:50:07 by tratanat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 NAME = push_swap
-BONUS_NAME = checker_bonus
+BONUS_NAME = checker
 CC = gcc
 CFLAGS = -Wextra -Wall -Werror
 INCLUDES = ./libft/

@@ -6,15 +6,12 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/23 08:57:20 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:09:36 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
 
-//Init lists. Set list's head node.
-//Check if list is already sorted.
-//If not check logic and process.
 int	main(int argc, char **argv)
 {
 	int		*num_list;
@@ -34,7 +31,10 @@ int	main(int argc, char **argv)
 		return (0);
 	check = doop(stack_a, stack_b);
 	if (check)
-		printerror(num_list);
+	{
+		ft_cleanup(stack_a, stack_b);
+		printerror(NULL);
+	}
 	check_stack(stack_a);
 	ft_cleanup(stack_a, stack_b);
 	return (0);
@@ -46,9 +46,9 @@ void	check_stack(t_stack *stack)
 
 	sorted = checksort(stack);
 	if (sorted == 1)
-		ft_printf("OK");
+		ft_printf("OK\n");
 	else
-		ft_printf("KO");
+		ft_printf("KO\n");
 }
 
 int	doop(t_stack *stack_a, t_stack *stack_b)
@@ -59,43 +59,44 @@ int	doop(t_stack *stack_a, t_stack *stack_b)
 	op = get_next_line(0);
 	while (op)
 	{
-		if (ft_strncmp(op, "sa", 2) && ft_strlen(op) == 2)
+		if (!ft_strncmp(op, "sa", 2) && ft_strlen(op) == 3)
 			stack_swap(stack_a);
-		else if (ft_strncmp(op, "sb", 2) && ft_strlen(op) == 2)
+		else if (!ft_strncmp(op, "sb", 2) && ft_strlen(op) == 3)
 			stack_swap(stack_b);
-		else if (ft_strncmp(op, "ss", 2) && ft_strlen(op) == 2)
+		else if (!ft_strncmp(op, "ss", 2) && ft_strlen(op) == 3)
 			stack_bothswap(stack_a, stack_b);
-		else if (ft_strncmp(op, "pa", 2) && ft_strlen(op) == 2)
+		else if (!ft_strncmp(op, "pa", 2) && ft_strlen(op) == 3)
 			stack_push(stack_b, stack_a);
-		else if (ft_strncmp(op, "pb", 2) && ft_strlen(op) == 2)
+		else if (!ft_strncmp(op, "pb", 2) && ft_strlen(op) == 3)
 			stack_push(stack_a, stack_b);
 		else
 			check = doop_rotate(op, stack_a, stack_b);
 		if (check)
 			return (-1);
+		op = get_next_line(0);
 	}
 	return (0);
 }
 
 int	doop_rotate(char *op, t_stack *stack_a, t_stack *stack_b)
 {
-	if (ft_strncmp(op, "rr", 2) && ft_strlen(op) == 2)
+	if (!ft_strncmp(op, "rr", 2) && ft_strlen(op) == 3)
 	{
 		stack_rotate(stack_a);
 		stack_rotate(stack_b);
 	}
-	else if (ft_strncmp(op, "ra", 2) && ft_strlen(op) == 2)
+	else if (!ft_strncmp(op, "ra", 2) && ft_strlen(op) == 3)
 		stack_rotate(stack_a);
-	else if (ft_strncmp(op, "rb", 2) && ft_strlen(op) == 2)
+	else if (!ft_strncmp(op, "rb", 2) && ft_strlen(op) == 3)
 		stack_rotate(stack_b);
-	else if (ft_strncmp(op, "rrr", 3) && ft_strlen(op) == 3)
+	else if (!ft_strncmp(op, "rrr", 3) && ft_strlen(op) == 4)
 	{
 		stack_reverser(stack_a);
 		stack_reverser(stack_b);
 	}
-	else if (ft_strncmp(op, "rra", 3) && ft_strlen(op) == 3)
+	else if (!ft_strncmp(op, "rra", 3) && ft_strlen(op) == 4)
 		stack_reverser(stack_a);
-	else if (ft_strncmp(op, "rrb", 3) && ft_strlen(op) == 3)
+	else if (!ft_strncmp(op, "rrb", 3) && ft_strlen(op) == 4)
 		stack_reverser(stack_b);
 	else
 		return (-1);

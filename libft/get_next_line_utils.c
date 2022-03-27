@@ -6,13 +6,13 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 14:44:01 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/23 09:00:58 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/27 10:52:51 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(char *buffer, int size)
+void	ft_gnl_bzero(char *buffer, int size)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ char	*ft_strnjoin(char *dst, char *src, int n)
 	return (output);
 }
 
-void	ft_lstdelone(t_storedlst **readlst, t_storedlst *target)
+void	ft_gnl_lstdelone(t_storedlst **readlst, t_storedlst *target)
 {
 	t_storedlst	*temp;
 	t_storedlst	*cur;
@@ -72,7 +72,7 @@ void	ft_lstdelone(t_storedlst **readlst, t_storedlst *target)
 	return ;
 }
 
-char	*ft_strdup(char *src)
+char	*ft_gnl_strdup(char *src)
 {
 	char	*output;
 	int		i;

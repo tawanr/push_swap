@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:37:18 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/23 08:59:05 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:07:35 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	stack_push(t_stack *stack_from, t_stack *stack_to)
 	temp->next->prev = temp->prev;
 	stack_from->head = temp->next;
 	stack_from->stack_size--;
+	if (stack_from->stack_size == 0)
+		stack_from->head = NULL;
 	if (stack_to->head == NULL)
 	{
 		stack_to->head = temp;
@@ -90,5 +92,4 @@ void	stack_push(t_stack *stack_from, t_stack *stack_to)
 	temp->prev->next = temp;
 	temp->next->prev = temp;
 	stack_to->stack_size++;
-	return ;
 }

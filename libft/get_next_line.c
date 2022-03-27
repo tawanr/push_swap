@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:07:59 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/23 08:56:06 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/27 11:13:32 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ char	*get_next_line(int fd)
 	newline = getstored(&readlst, &output, fd);
 	while (!newline)
 	{
-		ft_bzero(buffer, BUFFER_SIZE + 1);
+		ft_gnl_bzero(buffer, BUFFER_SIZE + 1);
 		bytesread = read(fd, buffer, BUFFER_SIZE);
 		if (bytesread <= 0)
-			break ;
+		{
+			free(buffer);
+			return (0);
+		}
 		newline = checknl(&output, buffer, fd, &readlst);
 	}
 	if (output && newline)
@@ -53,7 +56,7 @@ int	checknl(char **output, char *buffer, int fd, t_storedlst **readlst)
 	*output = ft_strnjoin(*output, buffer, i);
 	if (buffer[i] == '\n')
 	{
-		if (!storeline(ft_strdup(buffer + i + 1), fd, readlst))
+		if (!storeline(ft_gnl_strdup(buffer + i + 1), fd, readlst))
 			return (-1);
 		return (1);
 	}
@@ -82,7 +85,7 @@ int	storeline(char *buffer, int fd, t_storedlst **readlst)
 		temp->stored = buffer;
 	if (!(*buffer))
 	{
-		ft_lstdelone(readlst, temp);
+		ft_gnl_lstdelone(readlst, temp);
 		free(buffer);
 	}
 	return (1);
@@ -105,7 +108,7 @@ int	getstored(t_storedlst **readlst, char **output, int fd)
 			newline = checknl(output, temp->stored, fd, readlst);
 			free(tempstr);
 			if (!newline)
-				ft_lstdelone(readlst, temp);
+				ft_gnl_lstdelone(readlst, temp);
 			return (newline);
 		}
 	}
