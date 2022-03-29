@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 08:47:03 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 20:24:17 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:22:35 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_node
 	int				value;
 	struct s_node	*prev;
 	struct s_node	*next;
+	int				sorted;
 }	t_node;
 
 typedef struct s_stack
@@ -42,6 +43,7 @@ typedef struct s_lim
 	int	low_lim;
 	int	high_lim;
 	int	next_lim;
+	int	*arr;
 }	t_lim;
 
 t_stack	*init_stack(int *num_list, size_t size, char name);

@@ -6,7 +6,7 @@
 /*   By: tratanat <tawan.rtn@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 22:58:33 by tratanat          #+#    #+#             */
-/*   Updated: 2022/03/20 21:18:32 by tratanat         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:57:38 by tratanat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 
 void	dosort(t_stack *stack_a, t_stack *stack_b, t_queue *queue, size_t size)
 {
-	static t_lim	limits = {0, 0, 0};
+	static t_lim	limits = {0, 0, 0, 0};
 	int				arr_size;
 	int				*array;
 	int				div;
@@ -110,6 +110,27 @@ int	inlims(t_lim *limits, t_stack *stack_a)
 	}
 	if (count > 0)
 		return (1);
+	else
+		return (0);
+}
+
+int	nodeinlims(t_lim *limits, t_node *node, int sec)
+{
+	if (sec == 0)
+	{
+		if (node->value >= limits->low_lim && node->value <= limits->high_lim)
+			return (1);
+	}
+	else if (sec == 1)
+	{
+		if (node->value >= limits->high_lim && node->value <= limits->next_lim)
+			return (1);
+	}
+	else if (sec == 2)
+	{
+		if (node->value >= limits->low_lim && node->value <= limits->next_lim)
+			return (1);
+	}
 	else
 		return (0);
 }
